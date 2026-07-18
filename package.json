@@ -1,13 +1,14 @@
 {
   "name": "gutenmorgen",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Random Guten-Morgen-Generator",
+  "bin": {
+    "gutenmorgen": "./index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "keywords": [
+    "gutenmorgen",
+    "cli",
+    "greeting"
+  ],
+  "license": "MIT"
 }
