@@ -1,0 +1,62 @@
+doctype html
+html(lang="de")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title= title
+    link(rel="stylesheet" href="/styles.css")
+    script(src="/copy.js" defer)
+    script(src="/emoji-picker.js" defer)
+  body
+    main.page
+      section.greeting-panel
+        p.kicker Guten Morgen Generator
+        .greeting-header
+          h1#greeting-text= greeting
+          button.copy-button(type="button" data-copy-target="greeting-text" aria-label="Gruß kopieren" title="Gruß kopieren")
+            span.copy-icon(aria-hidden="true") ⧉
+            span.copy-label Kopieren
+        form(action="/" method="get")
+          .field
+            label(for="name") Name
+            input#name(type="text" name="name" value=selections.name placeholder="Anna" autocomplete="name")
+
+          .field-grid
+            .field
+              label(for="prefix") Emoji davor
+              input#prefix.emoji-input(type="text" name="prefix" value=selections.prefix placeholder="🌞☕🌻" autocomplete="off" maxlength="64")
+              .emoji-buttons(data-emoji-group="prefix" aria-label="Emoji davor auswählen")
+                button.emoji-button(type="button" data-emoji-target="prefix" data-emoji-value="" aria-label="Kein Emoji davor") Ohne
+                button.emoji-button(type="button" data-emoji-target="prefix" data-emoji-value="random" aria-label="Zufälliges Emoji davor") Zufällig
+                each emoji in options.prefixEmojis
+                  button.emoji-button(type="button" data-emoji-target="prefix" data-emoji-value=emoji aria-label=("Emoji " + emoji))= emoji
+
+            .field
+              label(for="suffix") Emoji danach
+              input#suffix.emoji-input(type="text" name="suffix" value=selections.suffix placeholder="😊✨🍀" autocomplete="off" maxlength="64")
+              .emoji-buttons(data-emoji-group="suffix" aria-label="Emoji danach auswählen")
+                button.emoji-button(type="button" data-emoji-target="suffix" data-emoji-value="" aria-label="Kein Emoji danach") Ohne
+                button.emoji-button(type="button" data-emoji-target="suffix" data-emoji-value="random" aria-label="Zufälliges Emoji danach") Zufällig
+                each emoji in options.suffixEmojis
+                  button.emoji-button(type="button" data-emoji-target="suffix" data-emoji-value=emoji aria-label=("Emoji " + emoji))= emoji
+
+          .field
+            label(for="generalText") Allgemeiner Text
+            select#generalText(name="generalText")
+              option(value="" selected=selections.generalText === "") Ohne
+              option(value="random" selected=selections.generalText === "random") Zufällig
+              each text in options.generalTexts
+                option(value=text selected=selections.generalText === text)= text
+
+          .field
+            label(for="weekdayText") Wochentagstext
+            - const dayNames = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+            select#weekdayText(name="weekdayText")
+              option(value="" selected=selections.weekdayText === "") Ohne
+              option(value="random" selected=selections.weekdayText === "random") Zufällig für heute
+              each weekdayOption in options.weekdayOptions
+                option(value=weekdayOption.text selected=selections.weekdayText === weekdayOption.text)= dayNames[weekdayOption.day] + ": " + weekdayOption.text
+
+          .form-actions
+            button(type="submit") Gruß bauen
+            button.secondary-button(type="submit" name="randomize" value="1" formnovalidate) Zufällig

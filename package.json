@@ -1,14 +1,28 @@
 {
   "name": "gutenmorgen",
   "version": "1.0.0",
-  "description": "Random Guten-Morgen-Generator",
+  "description": "Random Guten-Morgen-Generator built with Node.js and Pug",
+  "main": "index.js",
   "bin": {
-    "gutenmorgen": "./index.js"
+    "gutenmorgen": "./cli.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "cli": "node cli.js",
+    "dev": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "keywords": [
     "gutenmorgen",
-    "cli",
-    "greeting"
+    "greeting",
+    "node",
+    "pug"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1",
+    "pug": "^3.0.4"
+  }
 }
